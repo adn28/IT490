@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+    messaging:
+      image: 'rabbitmq:3.8.8-management'
+      ports:
+        - 15672:15672
+    db:
+      image: 'postgres'
+      environment:
+        POSTGRES_PASSWORD: 'example'
+    front-end:
+      build: front-end/
+      ports:
+        - 5000:5000
+    back-end:
+      build: back-end/

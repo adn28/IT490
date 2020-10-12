@@ -1,16 +1,24 @@
 version: "3.8"
 services:
     messaging:
-      image: 'rabbitmq:3.8.8-management'
-      ports:
-        - 15672:15672
-    db:
-      image: 'postgres'
-      environment:
-        POSTGRES_PASSWORD: 'example'
+       image: 'rabbitmq:3.8.8-management'
+       ports:
+          - 15672:15672
+    adminer:
+       image: adminer
+       ports:
+          - 8080:8080
+    database: 
+       build: database/
+       environment:
+           POSTGRES_PASSWORD: 'example'
+       volumes:
+           - data-volume:/var/lib/postgresql/data
     front-end:
-      build: front-end/
-      ports:
-        - 5000:5000
+       build: front-end/
+       ports:
+           - 5000:5000
     back-end:
-      build: back-end/
+       build: back-end/
+volumes:
+    data-volume:

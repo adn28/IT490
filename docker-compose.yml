@@ -11,7 +11,7 @@ services:
     database: 
        build: database/
        environment:
-           POSTGRES_PASSWORD: 'example'
+           postgres_password: 'example'
        volumes:
            - data-volume:/var/lib/postgresql/data
     front-end:

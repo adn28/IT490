@@ -3,12 +3,12 @@ import psycopg2
 import time
 import os
 
-postgres_password = os.environ['POSTGRES_PASSWORD']
+
 con = psycopg2.connect(
     host='database',
-    databast='example',
+    database='users',
     user='postgres',
-    password=postgres_password  
+    password='example'
 )
 
 cur = con.cursor()

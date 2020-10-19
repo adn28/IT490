@@ -14,7 +14,7 @@ con = psycopg2.connect(
 cur = con.cursor()
 
 cur.execute("CREATE TABLE Products(Id INTEGER PRIMARY KEY, Name VARCHAR(20), Price INT)")
-
+cur.execute("CREATE TABLE AccountNumber(AccName VARCHAR(20), AcctNum INTEGER PRIMARY KEY)")
 
 con.commit()
 con.close()  

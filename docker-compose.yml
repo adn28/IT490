@@ -11,24 +11,15 @@ services:
 
   # end::messaging[]
 
-  db1:
+  db:
     build: ./db
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_REPLICA_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_NODES: "db1 db2"
     volumes:
       - data-volume:/var/lib/postgresql/data
-
-  db2:
-    build: ./db
-    environment:
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_REPLICA_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_NODES: "db1 db2"
-    volumes:
-      - data-volume2:/var/lib/postgresql/data
-
+    ports:
+      - 5432:5432
   adminer:
     image: adminer
     ports:
@@ -54,10 +45,8 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
-      POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
   
   # end::back_end[]
 volumes:
   data-volume:
-  data-volume2:

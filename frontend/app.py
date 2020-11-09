@@ -1,14 +1,13 @@
 from flask import Flask, render_template, request, session
 from werkzeug.security import check_password_hash, generate_password_hash
 import pika
-import messaging
 import os
 
 app = Flask(__name__)
 app.secret_key = os.environ['FLASK_SECRET_KEY'] 
 
-@app.route('/', methods=['GET','POST'])
-def loginpage():
+@app.route('/login', methods=['GET','POST'])
+def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -25,7 +24,7 @@ def loginpage():
     return render_template('login.html')
 
 @app.route('/register')
-def registerpage():
+def register():
     if request.method =='POST':
        firstname = request.form['firstname']
        lastname = request.form['lastname']
@@ -35,21 +34,22 @@ def registerpage():
        confirmpassword = request.form['confirmpassword']
        if password == confirmpassword:
           msg = messaging.Messaging()
-           msg.send(
-                'REGISTER',
-                {
-                    'firstname' : firstname,
-                    'lastname' : lastname,
-                    'email': email,
-                    'username' : username,
-                    'hash': generate_password_hash(password)
-                }
+          msg.send(
+              'REGISTER',
+              {
+                   'firstname' : firstname,
+                   'lastname' : lastname,
+                   'email': email,
+                   'username' : username,
+                   'hash': generate_password_hash(password)
+               }
             )
-            response = msg.receive()
-           if response['success']:
-               session['username'] = username
-        else:
-           return f"{response['message']}
+          response = msg.receive()
+          if response['success']:
+              session['username'] = username
+              return redirect('/')
+          else:
+              return f"{response['message']}"
 
     return render_template('register.html')
 
@@ -57,3 +57,6 @@ def registerpage():
 def logout():
    session.pop('username', None)
    return redirect('/')
+
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0')

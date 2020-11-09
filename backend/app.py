@@ -1,9 +1,9 @@
 import pika
-import time
-import os
 import psycopg2
-
-
+import json
+import os
+import time
+import logging
 
 
 sleepTime = 20
@@ -39,7 +39,7 @@ except (Exception, psycopg2.Error) as error:
 cursor = conn.cursor()
 
 # Talking with Messaging
-def callback(ch, method, properties, body):
+def process_request(ch, method, properties, body):
     request = json.loads(body)
     if 'action' not in request:
         response = {
@@ -93,5 +93,5 @@ def get_hash(data):
 
 
 channel.basic_qos(prefetch_count=1)
-channel.basic_consume(queue='request', auto_ack=True, on_message_callback=callback)
+channel.basic_consume(queue='request', auto_ack=True, on_message_callback=process_request)
 channel.start_consuming()

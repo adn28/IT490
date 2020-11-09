@@ -102,6 +102,15 @@ if [ -z $PRIMARY ]; then
         # Create a user for replication operations
         psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" << EOSQL
             CREATE USER repuser REPLICATION LOGIN ENCRYPTED PASSWORD '$POSTGRES_REPLICA_PASSWORD';
+            \c weather
+            CREATE TABLE users
+            (
+               username varchar(50)
+               firstname varchar(50)
+               lastname varchar(50) 
+               email varchar(255)
+               hash varchar(255)
+            );
 EOSQL
 
         # Stop the temporary server

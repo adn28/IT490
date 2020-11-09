@@ -1,23 +1,49 @@
-<form action="action_page.php" method="post">
-  <div class="imgcontainer">
-    <img src="img_avatar2.png" alt="Avatar" class="avatar">
-  </div>
-
-  <div class="container">
-    <label for="uname"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="uname" required>
-
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
-
-    <button type="submit">Login</button>
-    <label>
-      <input type="checkbox" checked="checked" name="remember"> Remember me
-    </label>
-  </div>
-
-  <div class="container" style="background-color:#f1f1f1">
-    <button type="button" class="cancelbtn">Cancel</button>
-    <span class="psw">Forgot <a href="#">password?</a></span>
-  </div>
-</form>
+<html>
+<head>
+<title>Login/Signup</title>
+<style>
+	div {
+    width: 450px;
+	padding:25px;
+    border: 5px solid gray;
+    margin-top: 50;
+	margin-left: 420;
+	}
+	button {
+	background-color: #4CAF50;
+    color: white;
+	border: none;
+    cursor: pointer;
+	margin-left: 200;
+	padding :9px;
+	}
+	button1 {
+	background-color: #4CAF50;
+    color: white;
+	border: none;
+    cursor: pointer;
+	margin-left: 10;
+	padding :9px;
+	}
+	
+</style>
+</head>
+<body>
+	<font size=8 color= ><center>Signup/Login</center></font>
+	<div>
+		<font size=7>Login</font>
+		<hr>
+		<form action="sample.php" method="post">
+		<label>Email_Address : </label> 
+		<input type="Text" placeholder="Enter Email" name="Email" required ><br><br>
+		<label>Password : </label> 
+		<input type="Password" placeholder="Enter Password." name="Password" required >
+		<br><br>
+		<input type="submit" value="Submit">
+        </form>
+        <hr><br>
+        Do not have an account<button1 type="button" onclick="window.location.href='../login/signup.html'" >Signup</button1>
+	</div>
+	
+        </body>
+</html>

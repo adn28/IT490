@@ -1,7 +1,6 @@
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, render_template, request, session
 from werkzeug.security import check_password_hash, generate_password_hash
 import pika
-import messaging
 import os
 
 app = Flask(__name__)

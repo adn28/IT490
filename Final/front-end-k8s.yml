@@ -1,0 +1,49 @@
+#tag::service[]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: front-end
+  labels:
+    app: front-end
+spec:
+  type: LoadBalancer
+  selector:
+    app: front-end
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 5000
+#end::service[]
+
+#tag::deployment[]
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: front-end
+  labels:
+    app: front-end
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: front-end
+  template:
+    metadata:
+      labels:
+        app: front-end
+    spec:
+      containers:
+        - name: front-end
+          image: front-end:v1
+          #image: gcr.io/example-20200503/front-end:v1
+          env:
+            - name: RABBITMQ_DEFAULT_USER
+              value: "guest"
+            - name: RABBITMQ_DEFAULT_PASS
+              value: "guest"
+            - name: FLASK_SECRET_KEY
+              value: "changeme"
+#end::deployment[]
